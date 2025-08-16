@@ -12,18 +12,7 @@
           "informationUri": "https://www.glog.ai",
           "rules": [
             {
-              "id": "glog-fd009897-a85f-4b7d-ba94-adc5901d5ea4",
-              "help": {
-                "text": ""
-              },
-              "properties": {
-                "tags": [
-                  "DS121708"
-                ]
-              }
-            },
-            {
-              "id": "glog-157c99e5-d81c-4a0b-bcf1-f3bba5c2dd4a",
+              "id": "glog-cfda4191-605b-4892-bf56-782c5d4a45be",
               "help": {
                 "text": ""
               },
@@ -34,7 +23,7 @@
               }
             },
             {
-              "id": "glog-abd642fc-88a1-44be-b7f8-5d6e9000a676",
+              "id": "glog-06bb2fb6-2c94-44ac-a7f0-3b1884d0e3f6",
               "help": {
                 "text": ""
               },
@@ -45,7 +34,18 @@
               }
             },
             {
-              "id": "glog-b0aea606-2c7e-4d6c-89be-e11e0bbb9b27",
+              "id": "glog-94fe618a-6975-46fa-821f-f768e5196ca4",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-e36a6e93-5c41-4995-b003-b3d6f5cd3d78",
               "help": {
                 "text": ""
               },
@@ -56,7 +56,7 @@
               }
             },
             {
-              "id": "glog-65103cd9-4553-4e7d-a076-9bb54f78a7a2",
+              "id": "glog-826145d8-6d8a-4770-ace0-53459307f622",
               "help": {
                 "text": ""
               },
@@ -67,7 +67,7 @@
               }
             },
             {
-              "id": "glog-9cddadd3-b70c-4a80-8370-4f14fb1aa891",
+              "id": "glog-3a061191-4a36-4e84-b4b8-b38a00dacb34",
               "help": {
                 "text": ""
               },
@@ -89,7 +89,7 @@
       "language": "en-US",
       "results": [
         {
-          "ruleId": "glog-157c99e5-d81c-4a0b-bcf1-f3bba5c2dd4a",
+          "ruleId": "glog-cfda4191-605b-4892-bf56-782c5d4a45be",
           "kind": "fail",
           "level": "note",
           "message": {},
@@ -152,7 +152,7 @@
           }
         },
         {
-          "ruleId": "glog-fd009897-a85f-4b7d-ba94-adc5901d5ea4",
+          "ruleId": "glog-94fe618a-6975-46fa-821f-f768e5196ca4",
           "kind": "fail",
           "level": "note",
           "message": {},
@@ -215,7 +215,7 @@
           }
         },
         {
-          "ruleId": "glog-abd642fc-88a1-44be-b7f8-5d6e9000a676",
+          "ruleId": "glog-e36a6e93-5c41-4995-b003-b3d6f5cd3d78",
           "kind": "fail",
           "level": "note",
           "message": {},
@@ -301,7 +301,7 @@
           }
         },
         {
-          "ruleId": "glog-65103cd9-4553-4e7d-a076-9bb54f78a7a2",
+          "ruleId": "glog-826145d8-6d8a-4770-ace0-53459307f622",
           "kind": "fail",
           "level": "note",
           "message": {},
@@ -387,7 +387,7 @@
           }
         },
         {
-          "ruleId": "glog-9cddadd3-b70c-4a80-8370-4f14fb1aa891",
+          "ruleId": "glog-3a061191-4a36-4e84-b4b8-b38a00dacb34",
           "kind": "fail",
           "level": "note",
           "message": {},
