@@ -1,0 +1,459 @@
+{
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Glog.AI",
+          "organization": "Glog.AI",
+          "fullName": "Glog, Making software more secure",
+          "version": "1.0.0",
+          "semanticVersion": "1.0.0",
+          "informationUri": "https://www.glog.ai",
+          "rules": [
+            {
+              "id": "glog-fd009897-a85f-4b7d-ba94-adc5901d5ea4",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS121708"
+                ]
+              }
+            },
+            {
+              "id": "glog-157c99e5-d81c-4a0b-bcf1-f3bba5c2dd4a",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS161085"
+                ]
+              }
+            },
+            {
+              "id": "glog-abd642fc-88a1-44be-b7f8-5d6e9000a676",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-b0aea606-2c7e-4d6c-89be-e11e0bbb9b27",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-65103cd9-4553-4e7d-a076-9bb54f78a7a2",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS140021"
+                ]
+              }
+            },
+            {
+              "id": "glog-9cddadd3-b70c-4a80-8370-4f14fb1aa891",
+              "help": {
+                "text": ""
+              },
+              "properties": {
+                "tags": [
+                  "DS161085"
+                ]
+              }
+            }
+          ],
+          "language": "en-US",
+          "contents": [
+            "localizedData",
+            "nonLocalizedData"
+          ],
+          "isComprehensive": false
+        }
+      },
+      "language": "en-US",
+      "results": [
+        {
+          "ruleId": "glog-157c99e5-d81c-4a0b-bcf1-f3bba5c2dd4a",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "External/glad/glad.cpp"
+                },
+                "region": {
+                  "startLine": 211,
+                  "startColumn": 37,
+                  "endLine": 211,
+                  "endColumn": 53,
+                  "charOffset": 5035,
+                  "charLength": 16,
+                  "snippet": {
+                    "text": "malloc((len + 1)",
+                    "rendered": {
+                      "text": "malloc((len + 1)",
+                      "markdown": "`malloc((len + 1)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If the value provided to malloc is the result of unsafe integer math, it can result in an exploitable condition. "
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "External/glad/glad.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 5035,
+                        "charLength": 16
+                      },
+                      "insertedContent": {
+                        "text": "calloc(<number of elements>, <size of each element>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-fd009897-a85f-4b7d-ba94-adc5901d5ea4",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "External/glad/glad.cpp"
+                },
+                "region": {
+                  "startLine": 214,
+                  "startColumn": 16,
+                  "endLine": 214,
+                  "endColumn": 55,
+                  "charOffset": 5133,
+                  "charLength": 39,
+                  "snippet": {
+                    "text": "memcpy(local_str, gl_str_tmp, (len + 1)",
+                    "rendered": {
+                      "text": "memcpy(local_str, gl_str_tmp, (len + 1)",
+                      "markdown": "`memcpy(local_str, gl_str_tmp, (len + 1)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "There are a number of conditions in which memcpy can introduce a vulnerability (mismatched buffer sizes, null pointers, etc.). More secure alternitives perform additional validation of the source and destination buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "External/glad/glad.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 5133,
+                        "charLength": 39
+                      },
+                      "insertedContent": {
+                        "text": "memcpy_s(local_str, <size of local_str>,  gl_str_tmp,  (len + 1)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-abd642fc-88a1-44be-b7f8-5d6e9000a676",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "External/glad/glad.cpp"
+                },
+                "region": {
+                  "startLine": 1884,
+                  "startColumn": 30,
+                  "endLine": 1884,
+                  "endColumn": 49,
+                  "charOffset": 139364,
+                  "charLength": 19,
+                  "snippet": {
+                    "text": "strlen(prefixes[i])",
+                    "rendered": {
+                      "text": "strlen(prefixes[i])",
+                      "markdown": "`strlen(prefixes[i])`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "External/glad/glad.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 139364,
+                        "charLength": 19
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(prefixes[i], <size of prefixes[i]>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "External/glad/glad.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 139364,
+                        "charLength": 19
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(prefixes[i], <size of prefixes[i]>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-65103cd9-4553-4e7d-a076-9bb54f78a7a2",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "External/glad/glad.cpp"
+                },
+                "region": {
+                  "startLine": 209,
+                  "startColumn": 37,
+                  "endLine": 209,
+                  "endColumn": 55,
+                  "charOffset": 4977,
+                  "charLength": 18,
+                  "snippet": {
+                    "text": "strlen(gl_str_tmp)",
+                    "rendered": {
+                      "text": "strlen(gl_str_tmp)",
+                      "markdown": "`strlen(gl_str_tmp)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "External/glad/glad.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 4977,
+                        "charLength": 18
+                      },
+                      "insertedContent": {
+                        "text": "strlen_s(gl_str_tmp, <size of gl_str_tmp>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "description": {
+                "text": "If a string is missing a null terminator, strlen will read past the end of the buffer"
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "External/glad/glad.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 4977,
+                        "charLength": 18
+                      },
+                      "insertedContent": {
+                        "text": "strnlen(gl_str_tmp, <size of gl_str_tmp>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "glog-9cddadd3-b70c-4a80-8370-4f14fb1aa891",
+          "kind": "fail",
+          "level": "note",
+          "message": {},
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "External/glad/glad.cpp"
+                },
+                "region": {
+                  "startLine": 198,
+                  "startColumn": 29,
+                  "endLine": 198,
+                  "endColumn": 44,
+                  "charOffset": 4654,
+                  "charLength": 15,
+                  "snippet": {
+                    "text": "malloc((size_t)",
+                    "rendered": {
+                      "text": "malloc((size_t)",
+                      "markdown": "`malloc((size_t)`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "fixes": [
+            {
+              "description": {
+                "text": "If the value provided to malloc is the result of unsafe integer math, it can result in an exploitable condition. "
+              },
+              "artifactChanges": [
+                {
+                  "artifactLocation": {
+                    "uri": "External/glad/glad.cpp"
+                  },
+                  "replacements": [
+                    {
+                      "deletedRegion": {
+                        "charOffset": 4654,
+                        "charLength": 15
+                      },
+                      "insertedContent": {
+                        "text": "calloc(<number of elements>, <size of each element>)"
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "BestPractice",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        }
+      ],
+      "newlineSequences": [
+        "\r\n",
+        "\n"
+      ]
+    }
+  ]
+}
