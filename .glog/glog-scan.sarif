@@ -36,18 +36,6 @@
               }
             },
             {
-              "id": "a92d3a62-786c-382e-957b-9f050a7c03db",
-              "help": {
-                "text": "",
-                "markdown": "## Description\n\nThe \"Prohibited C Function Identified\" vulnerability refers to the use of certain C functions that are considered unsafe due to their potential to cause buffer overflows, format string vulnerabilities, or other security issues. In the provided code snippet, the `std::atoi` function is used, which is a C function that can lead to undefined behavior if the input string does not represent a valid integer.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, it is recommended to use safer alternatives to these functions that include proper error handling and input validation. In the case of `std::atoi`, a safer alternative would be `std::stoi` or `std::stol` which throw exceptions if the conversion cannot be performed.\n\n## Source Code Fix Recommendation\n\nHere is a fixed version of the code snippet:\n\n```cpp\n#include <string>\n#include <cstdlib>\n\nint main(int argc, char* argv[]) {\n    int dev_id = 0;\n    if (argc > 1) {\n        try {\n            dev_id = std::stoi(argv[1]);\n        } catch (std::invalid_argument& e) {\n            // Handle exception\n        } catch (std::out_of_range& e) {\n            // Handle exception\n        }\n    }\n    // Rest of the code\n}\n```\n\nIn this version, `std::stoi` is used instead of `std::atoi`. If the conversion cannot be performed, `std::stoi` throws an exception that can be caught and handled appropriately.\n\n## Library Dependencies\n\nThe code example requires the following library dependencies:\n\n- `<string>`: for `std::stoi` function.\n- `<cstdlib>`: for `std::atoi` function.\n\n## References\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-242: Use of Inherently Dangerous Function](https://cwe.mitre.org/data/definitions/242.html)"
-              },
-              "properties": {
-                "tags": [
-                  "DS154189"
-                ]
-              }
-            },
-            {
               "id": "87eb8d45-fa13-309a-8834-76210169fab4",
               "help": {
                 "text": "",
@@ -72,10 +60,22 @@
               }
             },
             {
+              "id": "a92d3a62-786c-382e-957b-9f050a7c03db",
+              "help": {
+                "text": "",
+                "markdown": "## Description\n\nThe \"Prohibited C Function Identified\" vulnerability refers to the use of certain C functions that are considered unsafe due to their potential to cause buffer overflows, format string vulnerabilities, or other security issues. In the provided code snippet, the `std::atoi` function is used, which is a C function that can lead to undefined behavior if the input string does not represent a valid integer.\n\n## Mitigation Advice\n\nTo mitigate this vulnerability, it is recommended to use safer alternatives to these functions that include proper error handling and input validation. In the case of `std::atoi`, a safer alternative would be `std::stoi` or `std::stol` which throw exceptions if the conversion cannot be performed.\n\n## Source Code Fix Recommendation\n\nHere is a fixed version of the code snippet:\n\n```cpp\n#include <string>\n#include <cstdlib>\n\nint main(int argc, char* argv[]) {\n    int dev_id = 0;\n    if (argc > 1) {\n        try {\n            dev_id = std::stoi(argv[1]);\n        } catch (std::invalid_argument& e) {\n            // Handle exception\n        } catch (std::out_of_range& e) {\n            // Handle exception\n        }\n    }\n    // Rest of the code\n}\n```\n\nIn this version, `std::stoi` is used instead of `std::atoi`. If the conversion cannot be performed, `std::stoi` throws an exception that can be caught and handled appropriately.\n\n## Library Dependencies\n\nThe code example requires the following library dependencies:\n\n- `<string>`: for `std::stoi` function.\n- `<cstdlib>`: for `std::atoi` function.\n\n## References\n\n- [OWASP C++ Secure Coding Practices](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-242: Use of Inherently Dangerous Function](https://cwe.mitre.org/data/definitions/242.html)"
+              },
+              "properties": {
+                "tags": [
+                  "DS154189"
+                ]
+              }
+            },
+            {
               "id": "1ebf5a47-2c53-335d-b9d3-b94dde014abc",
               "help": {
                 "text": "",
-                "markdown": "This finding is classified as a genuine vulnerability because the analysis identified a risk of undefined behavior due to possible overlap between the source and destination memory regions in the memory copy operation. The destination and source are both pointers, and dataflow analysis suggests that they may refer to overlapping memory areas. Additionally, there is no explicit check to ensure that the source and destination do not overlap, and the source pointer may also be null at this point, which could lead to a crash or further undefined behavior. The absence of a guard for the source pointer and the lack of evidence that the length is derived from the destination's capacity further increase the risk. This type of issue can result in unpredictable program behavior, memory corruption, or security vulnerabilities.\n\n## In Context Remediation\nTo prevent undefined behavior when copying memory, ensure that the source and destination memory regions do not overlap. If there is any possibility of overlap, use `memmove` instead of `memcpy`, as `memmove` is designed to handle overlapping regions safely. Additionally, check that the source pointer is not null before performing the copy to avoid potential crashes.\n\n```cpp\nif (gl_str_tmp != nullptr && local_str != gl_str_tmp) {\n    memmove(local_str, gl_str_tmp, (len + 1) * sizeof(char));\n}\n```\n\nIf you are certain that the regions never overlap, document this assumption clearly in the code and add assertions or runtime checks as appropriate.\n\n## References\n- [OWASP C-Based Toolchain Hardening Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-119: Improper Restriction of Operations within the Bounds of a Memory Buffer](https://cwe.mitre.org/data/definitions/119.html)\n- [CWE-787: Out-of-bounds Write](https://cwe.mitre.org/data/definitions/787.html)\n- [CWE-124: Buffer Underwrite ('Buffer Underflow')](https://cwe.mitre.org/data/definitions/124.html)\n- [CWE-476: NULL Pointer Dereference](https://cwe.mitre.org/data/definitions/476.html)\n- [OWASP Buffer Overflow](https://owasp.org/www-community/vulnerabilities/Buffer_Overflow)\n\n___\n"
+                "markdown": "This finding is classified as a genuine vulnerability because the analysis identified a risk of undefined behavior due to possible overlap between the source and destination memory regions in the memory copy operation. The destination and source are both pointers, and dataflow analysis suggests that they may refer to overlapping memory. Additionally, there is no explicit check to ensure that the source and destination do not overlap, and the source pointer may also be null at this point, which could lead to a crash or further undefined behavior. The absence of a guard for the source pointer and the lack of explicit buffer size management further increase the risk. This type of issue can result in unpredictable program behavior, memory corruption, or security vulnerabilities.\n\n## In Context Remediation\nTo prevent undefined behavior when copying memory, ensure that the source and destination buffers do not overlap. If there is any possibility of overlap, use `memmove` instead of `memcpy`, as `memmove` is designed to handle overlapping memory regions safely. Additionally, check that the source pointer is not null before performing the copy to avoid potential crashes.\n\n```cpp\nif (gl_str_tmp != nullptr && local_str != gl_str_tmp) {\n    memmove(local_str, gl_str_tmp, (len + 1) * sizeof(char));\n}\n```\n\nIf you are certain that the buffers never overlap, document this assumption clearly in the code and add assertions or runtime checks as appropriate. Always validate that the length does not exceed the capacity of the destination buffer to prevent buffer overflows.\n\n## References\n- [OWASP C-Based Toolchain Hardening Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/C-Based_Toolchain_Hardening_Cheat_Sheet.html)\n- [CWE-119: Improper Restriction of Operations within the Bounds of a Memory Buffer](https://cwe.mitre.org/data/definitions/119.html)\n- [CWE-120: Buffer Copy without Checking Size of Input ('Classic Buffer Overflow')](https://cwe.mitre.org/data/definitions/120.html)\n- [CWE-787: Out-of-bounds Write](https://cwe.mitre.org/data/definitions/787.html)\n- [OWASP Buffer Overflow](https://owasp.org/www-community/vulnerabilities/Buffer_Overflow)\n\n___\n"
               },
               "properties": {
                 "tags": [
@@ -271,46 +271,6 @@
           }
         },
         {
-          "ruleId": "a92d3a62-786c-382e-957b-9f050a7c03db",
-          "kind": "fail",
-          "level": "warning",
-          "message": {
-            "text": "\"Prohibited C Function Identified\""
-          },
-          "locations": [
-            {
-              "physicalLocation": {
-                "artifactLocation": {
-                  "uri": "Tutorials/reduction/benchmark/bench_utils.hpp"
-                },
-                "region": {
-                  "startLine": 48,
-                  "startColumn": 37,
-                  "endLine": 48,
-                  "endColumn": 41,
-                  "charOffset": 1702,
-                  "charLength": 4,
-                  "snippet": {
-                    "text": "atoi",
-                    "rendered": {
-                      "text": "atoi",
-                      "markdown": "`atoi`"
-                    }
-                  },
-                  "sourceLanguage": "cpp"
-                }
-              }
-            }
-          ],
-          "properties": {
-            "DevSkimSeverity": "Moderate",
-            "DevSkimConfidence": "High",
-            "tags": [
-              "API.DangerousAPI.BannedFunction"
-            ]
-          }
-        },
-        {
           "ruleId": "87eb8d45-fa13-309a-8834-76210169fab4",
           "kind": "fail",
           "level": "warning",
@@ -435,6 +395,46 @@
             "DevSkimConfidence": "High",
             "tags": [
               "API.DangerousAPI.ProblematicFunction"
+            ]
+          }
+        },
+        {
+          "ruleId": "a92d3a62-786c-382e-957b-9f050a7c03db",
+          "kind": "fail",
+          "level": "warning",
+          "message": {
+            "text": "\"Prohibited C Function Identified\""
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "Tutorials/reduction/benchmark/bench_utils.hpp"
+                },
+                "region": {
+                  "startLine": 48,
+                  "startColumn": 37,
+                  "endLine": 48,
+                  "endColumn": 41,
+                  "charOffset": 1702,
+                  "charLength": 4,
+                  "snippet": {
+                    "text": "atoi",
+                    "rendered": {
+                      "text": "atoi",
+                      "markdown": "`atoi`"
+                    }
+                  },
+                  "sourceLanguage": "cpp"
+                }
+              }
+            }
+          ],
+          "properties": {
+            "DevSkimSeverity": "Moderate",
+            "DevSkimConfidence": "High",
+            "tags": [
+              "API.DangerousAPI.BannedFunction"
             ]
           }
         },
